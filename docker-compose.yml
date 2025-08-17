@@ -1,0 +1,19 @@
+services:
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-gymhog}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-gymhog}
+      POSTGRES_DB: ${POSTGRES_DB:-gymhog}
+    ports:
+      - "5432:5432"
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-gymhog} -d ${POSTGRES_DB:-gymhog}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  db-data: {}
