@@ -5,11 +5,13 @@ use dioxus::{
 use serde::{Deserialize, Serialize};
 use std::dbg;
 
+use crate::Route;
+
 #[cfg(feature = "server")]
 use super::backend::get_db;
 
 #[component]
-pub fn Programming() -> Element {
+pub fn Programming_dummy() -> Element {
     let mut program_name = use_signal(|| String::from(""));
     let mut all_programs =
         use_resource(|| async move { get_all_programs().await.unwrap_or_default() });
@@ -38,6 +40,24 @@ pub fn Programming() -> Element {
 
     }
     )
+}
+
+#[component]
+pub fn Programming() -> Element {}
+
+#[component]
+pub fn add_program_interface() -> Element {
+    let mut program_name = use_signal(|| String::from("Program Name"));
+
+    rsx!(
+    div {
+        Link{ to: Route::Programming, "Add New Program" }
+    }
+    )
+}
+
+pub fn add_program_day_interface() -> Element {
+    todo!()
 }
 
 #[server]
