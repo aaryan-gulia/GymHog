@@ -234,7 +234,7 @@ pub async fn add_program(program_str: Program) -> Result<String, ServerFnError> 
 pub async fn get_all_programs() -> Result<Vec<Program>, ServerFnError> {
     let all_programs: Vec<Program> = get_db()
         .await
-        .select("Program")
+        .select("program")
         .await
         .expect("Can't select from table");
 
